@@ -1,4 +1,7 @@
 
+####1.0.2
+* [create] tags for gravatar.com
+
 ####1.0.1
 * [create] spring-security tags
 * [create] common-UUID/randomString
