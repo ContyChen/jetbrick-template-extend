@@ -1,5 +1,5 @@
 ####1.0.4
-* [update] String Method 添加 aglinAt()方法
+* [update] String Method 娣诲姞aglinAt()鏂规硶
 
 ####1.0.3
 * [create] methods for java.lang.String
