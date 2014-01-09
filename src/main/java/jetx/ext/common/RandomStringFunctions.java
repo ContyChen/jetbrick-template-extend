@@ -10,7 +10,7 @@ import jetbrick.template.JetAnnotations.Functions;
  * @since 1.0.1
  */
 @Functions
-public class CommonFunctions {
+public class RandomStringFunctions {
 
 	/*
 	 * UUID
