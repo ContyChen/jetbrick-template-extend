@@ -6,11 +6,13 @@ import java.util.UUID;
 import jetbrick.template.JetAnnotations.Functions;
 
 /**
+ * 生成随机uuid和随机字符串的function
+ * 
  * @author 应卓(yingzhor@gmail.com)
  * @since 1.0.1
  */
 @Functions
-public class RandomStringFunctions {
+public final class RandomStringFunctions {
 
 	/*
 	 * UUID

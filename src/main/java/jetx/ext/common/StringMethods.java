@@ -2,8 +2,13 @@ package jetx.ext.common;
 
 import jetbrick.template.JetAnnotations.Methods;
 
+/**
+ * 对java.lang.String做的method
+ * 
+ * @author 应卓(yingzhor@gmail.com)
+ */
 @Methods
-public class StringMethods {
+public final class StringMethods {
 
     public static final String EMPTY = "";
 
@@ -766,8 +771,6 @@ public class StringMethods {
      *
      * @param cs  the CharSequence to check, may be null
      * @return {@code true} if only contains digits, and is non-null
-     * @since 3.0 Changed signature from isNumeric(String) to isNumeric(CharSequence)
-     * @since 3.0 Changed "" to return false and not true
      */
 	public static boolean isNumeric(CharSequence cs) {
 		if (cs == null || cs.length() == 0) {
@@ -804,7 +807,6 @@ public class StringMethods {
      * @param cs  the CharSequence to check, may be null
      * @return {@code true} if only contains digits or space,
      *  and is non-null
-     * @since 3.0 Changed signature from isNumericSpace(String) to isNumericSpace(CharSequence)
      */
 	public static boolean isNumericSpace(CharSequence cs) {
 		if (cs == null) {
@@ -836,8 +838,6 @@ public class StringMethods {
      *
      * @param cs  the CharSequence to check, may be null
      * @return {@code true} if only contains whitespace, and is non-null
-     * @since 2.0
-     * @since 3.0 Changed signature from isWhitespace(String) to isWhitespace(CharSequence)
      */
 	public static boolean isWhitespace(CharSequence cs) {
 		if (cs == null) {
@@ -850,5 +850,76 @@ public class StringMethods {
 			}
 		}
 		return true;
+	}
+	
+    /**
+     * <p>Gets the leftmost {@code len} characters of a String.
+     * and pad with " ...".
+     * </p>
+     *
+     * <p>If {@code len} characters are not available, or the
+     * String is {@code null}, the String will be returned without
+     * an exception. An empty String is returned if len is negative.</p>
+     *
+     * <pre>
+     * StringMethods.alignAt(null, *)    			= null
+     * StringMethods.alignAt("abcdefg", 3)			= "abcdef ..."
+     * </pre>
+     *
+     * @param str  the String to get the leftmost characters from, may be null
+     * @param len  the length of the required String
+     * @return the leftmost characters and pad with " ...", {@code null} if null String input
+     * 
+     * @author janrn
+     * @since 1.0.4
+     */
+	public static String alignAt(String text, int length) {
+		return alignAt(text, length, " ...");
+	}
+	
+    /**
+     * <p>Gets the leftmost {@code len} characters of a String.
+     * and pad with another string. 
+     * </p>
+     *
+     * <p>If {@code len} characters are not available, or the
+     * String is {@code null}, the String will be returned without
+     * an exception. An empty String is returned if len is negative.</p>
+     *
+     * <pre>
+     * StringMethods.alignAt(null, *, *)    			= null
+     * StringMethods.alignAt("abcdefg", 3, "")			= "abcdef"
+     * StringMethods.alignAt("abcdefg", 3, "...")		= "abcdef..."
+     * </pre>
+     *
+     * @param str  the String to get the leftmost characters from, may be null
+     * @param len  the length of the required String
+     * @param padWith another string append to the leftmost characters
+     * @return the leftmost characters and pad with another string, {@code null} if null String input
+     * 
+     * @author janrn
+     * @since 1.0.4
+     */
+	public static String alignAt(String str, int length, String padWith) {
+		if (str == null) {
+			return str;
+		}
+		
+		int textLength = str.length();
+		int byteLength = 0;
+		StringBuffer returnStr = new StringBuffer();
+		int i = 0;
+		for (; i < textLength && byteLength < length * 2; i++) {
+			char charStr = str.charAt(i);
+			if (charStr >= 0x4e00 && charStr <= 0x9fa5)
+				byteLength += 2;
+			else
+				byteLength++;
+			returnStr.append(charStr);
+		}
+		if (i < textLength && padWith != null) {
+			returnStr.append(padWith);
+		}
+		return returnStr.toString();
 	}
 }

@@ -1,3 +1,6 @@
+####1.0.4
+* [update] String Method Ìí¼Ó aglinAt()·½·¨
+
 ####1.0.3
 * [create] methods for java.lang.String
 
