@@ -1,3 +1,5 @@
+####1.0.3
+* [create] methods for java.lang.String
 
 ####1.0.2
 * [create] tags for gravatar.com
