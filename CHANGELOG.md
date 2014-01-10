@@ -1,9 +1,15 @@
+
+#####1.0.5
+* [更新] DateTimeMethods.setXxx更名为resetXxx
+* [更新] StringMethods添加md5()/sha1()
+* [添加] java.lang.Throwable扩展方法
+
 #####1.0.4
 * [更新] StringMethods添加aglinAt()方法
-* [添加] 添加java.util.Date扩展方法
+* [添加] java.util.Date扩展方法
 
 #####1.0.3
-* [添加] 添加java.lang.String扩展方法
+* [添加] java.lang.String扩展方法
 
 #####1.0.2
 * [添加] 通用function方便的从gravatar.com获取用户头像

@@ -1,5 +1,8 @@
 package jetx.ext.common;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
 import jetbrick.template.JetAnnotations.Methods;
 
 /**
@@ -15,6 +18,15 @@ public final class StringMethods {
     public static final int INDEX_NOT_FOUND = -1;
     
     private static final int PAD_LIMIT = 8192;
+    
+    private static MessageDigest MD5_MESSAGE_DIGEST;
+
+    private static MessageDigest SHA1_MESSAGE_DIGEST;
+    
+    static {
+    	try { MD5_MESSAGE_DIGEST = MessageDigest.getInstance("MD5"); } catch (NoSuchAlgorithmException e) { }
+    	try { SHA1_MESSAGE_DIGEST = MessageDigest.getInstance("SHA-1"); } catch (NoSuchAlgorithmException e) { }
+    }
     
     /**
      * <p>Capitalizes a String changing the first letter to title case as
@@ -922,4 +934,41 @@ public final class StringMethods {
 		}
 		return returnStr.toString();
 	}
+	
+	/**
+	 * <p>hasing by MD5 algorithm</p>
+	 * 
+	 * @param string string to hasing
+	 * @return hashed string
+	 * @since 1.0.5
+	 */
+	public static String md5(String string) {
+		if (string == null) return null;
+		MD5_MESSAGE_DIGEST.update(string.getBytes());
+		byte byteData[] = MD5_MESSAGE_DIGEST.digest();
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < byteData.length; i++) {
+			sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+		}
+		return sb.toString();
+	}
+
+	/**
+	 * <p>hasing by SHA-1 algorithm</p>
+	 * 
+	 * @param string string to hasing
+	 * @return hashed string
+	 * @since 1.0.5
+	 */
+	public static String sha1(String string) {
+		if (string == null) return null;
+		SHA1_MESSAGE_DIGEST.update(string.getBytes());
+		byte byteData[] = SHA1_MESSAGE_DIGEST.digest();
+		StringBuffer sb = new StringBuffer();
+		for (int i = 0; i < byteData.length; i++) {
+			sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+		}
+		return sb.toString();
+	}
+
 }

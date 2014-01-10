@@ -268,7 +268,12 @@ public final class DateTimeMethods {
      * @return a new {@code Date} set with the specified value
      * @throws IllegalArgumentException if the date is null
      */
+	@Deprecated
 	public static Date setYears(Date date, int amount) {
+		return set(date, Calendar.YEAR, amount);
+	}
+	
+	public static Date resetYears(Date date, int amount) {
 		return set(date, Calendar.YEAR, amount);
 	}
 
@@ -282,7 +287,12 @@ public final class DateTimeMethods {
      * @return a new {@code Date} set with the specified value
      * @throws IllegalArgumentException if the date is null
      */
+	@Deprecated
 	public static Date setMonths(Date date, int amount) {
+		return set(date, Calendar.MONTH, amount - 1);
+	}
+
+	public static Date resetMonths(Date date, int amount) {
 		return set(date, Calendar.MONTH, amount - 1);
 	}
 
@@ -300,6 +310,10 @@ public final class DateTimeMethods {
 		return set(date, Calendar.DAY_OF_MONTH, amount);
 	}
 
+	public static Date resetDays(Date date, int amount) {
+		return set(date, Calendar.DAY_OF_MONTH, amount);
+	}
+
     //-----------------------------------------------------------------------
     /**
      * Sets the hours field to a date returning a new object.  Hours range 
@@ -311,7 +325,12 @@ public final class DateTimeMethods {
      * @return a new {@code Date} set with the specified value
      * @throws IllegalArgumentException if the date is null
      */
+	@Deprecated
 	public static Date setHours2(Date date, int amount) {
+		return set(date, Calendar.HOUR_OF_DAY, amount);
+	}
+
+	public static Date resetHours(Date date, int amount) {
 		return set(date, Calendar.HOUR_OF_DAY, amount);
 	}
 
@@ -325,7 +344,12 @@ public final class DateTimeMethods {
      * @return a new {@code Date} set with the specified value
      * @throws IllegalArgumentException if the date is null
      */
+	@Deprecated
 	public static Date setMinutes2(Date date, int amount) {
+		return set(date, Calendar.MINUTE, amount);
+	}
+
+	public static Date resetMinutes(Date date, int amount) {
 		return set(date, Calendar.MINUTE, amount);
 	}
     
@@ -339,7 +363,12 @@ public final class DateTimeMethods {
      * @return a new {@code Date} set with the specified value
      * @throws IllegalArgumentException if the date is null
      */
+	@Deprecated
 	public static Date setSeconds2(Date date, int amount) {
+		return set(date, Calendar.SECOND, amount);
+	}
+
+	public static Date resetSeconds(Date date, int amount) {
 		return set(date, Calendar.SECOND, amount);
 	}
 
@@ -353,7 +382,12 @@ public final class DateTimeMethods {
      * @return a new {@code Date} set with the specified value
      * @throws IllegalArgumentException if the date is null
      */
+	@Deprecated
 	public static Date setMilliseconds(Date date, int amount) {
+		return set(date, Calendar.MILLISECOND, amount);
+	}
+
+	public static Date resetMilliseconds(Date date, int amount) {
 		return set(date, Calendar.MILLISECOND, amount);
 	}
     
