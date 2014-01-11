@@ -1,7 +1,7 @@
 package jetx.ext.springmvc;
 
-import static jetx.ext.internal.InternalUtils.getRequest;
-import static jetx.ext.internal.InternalUtils.getServletContext;
+import static jetx.ext.internal.FunctionUtils.getRequest;
+import static jetx.ext.internal.FunctionUtils.getServletContext;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

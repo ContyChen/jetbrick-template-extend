@@ -1,7 +1,7 @@
 package jetx.ext.springmvc;
 
 
-import static jetx.ext.internal.InternalUtils.getRequest;
+import static jetx.ext.internal.TagUtils.getRequest;
 
 import java.io.IOException;
 import java.util.Locale;
