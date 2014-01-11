@@ -18,16 +18,25 @@ public class TagUtils {
 		return (ServletContext) ctx.getContext().get(JetWebContext.SERVLET_CONTEXT);
 	}
 
-	public static String formatAttributes(Map<String, Object> attrs) {
-		if (attrs == null || attrs.isEmpty()) {
+	public static String formatAttributes(Map<String, Object> attributes) {
+		if (attributes == null || attributes.isEmpty()) {
 			return "";
 		}
 		StringBuilder sb = new StringBuilder();
-		for (Map.Entry<String, Object> entry : attrs.entrySet()) {
+		for (Map.Entry<String, Object> entry : attributes.entrySet()) {
 			String key   = entry.getKey();
 			Object value = entry.getValue();
 			if (key != null && value != null) {
-				sb.append(key + "=\"" + value.toString() + "\" " );
+				/*
+				 * 如果是style属性,里面的双引号用单引号代替
+				 */
+				boolean isStyleAttr = key.toLowerCase().equals("style");
+				
+				if (isStyleAttr) {
+					sb.append(key + "=\"" + value.toString().replaceAll("\"", "'") + "\" " );
+				} else {
+					sb.append(key + "=\"" + value.toString() + "\" " );
+				}
 			}
 		}
 		return sb.toString();
