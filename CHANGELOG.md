@@ -2,6 +2,8 @@
 #####1.0.6
 * [添加] java.lang.Integer(int)扩展方法upto(), downto()
 * [添加] java.lang.Long(long)扩展方法upto(), downto()
+* [添加] GravatarTags直接生成<img>标签
+* [修复] 
 
 #####1.0.5
 * [更新] DateTimeMethods.setXxx更名为resetXxx
