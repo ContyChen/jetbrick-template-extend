@@ -15,19 +15,19 @@ import jetx.ext.internal.LoopIterators;
 @Methods
 public class IntegerMethods {
 
-	public static Iterator<Long> upto(int start, int stop) {
+	public static Iterator<Integer> upto(int start, int stop) {
 		return upto(start, stop, 1);
 	}
 	
-	public static Iterator<Long> upto(int start, int stop, int step) {
+	public static Iterator<Integer> upto(int start, int stop, int step) {
 		return LoopIterators.upto(start, stop, step);
 	}
 	
-	public static Iterator<Long> downto(int start, int stop) {
+	public static Iterator<Integer> downto(int start, int stop) {
 		return downto(start, stop, 1);
 	}
 	
-	public static Iterator<Long> downto(int start, int stop, int step) {
+	public static Iterator<Integer> downto(int start, int stop, int step) {
 		return LoopIterators.downto(start, stop, step);
 	}
 
