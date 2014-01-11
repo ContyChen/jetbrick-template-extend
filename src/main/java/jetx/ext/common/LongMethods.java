@@ -3,6 +3,7 @@ package jetx.ext.common;
 import java.util.Iterator;
 
 import jetbrick.template.JetAnnotations.Methods;
+import jetx.ext.internal.LoopIterators;
 
 /**
  * 对java.lang.Long做的method
@@ -18,7 +19,7 @@ public final class LongMethods {
 	}
 	
 	public static Iterator<Long> upto(long start, long stop, long step) {
-		return new UptoIterator(start, stop, step);
+		return LoopIterators.upto(start, stop, step);
 	}
 	
 	public static Iterator<Long> downto(long start, long stop) {
@@ -26,46 +27,7 @@ public final class LongMethods {
 	}
 	
 	public static Iterator<Long> downto(long start, long stop, long step) {
-		return new DowntoIterator(start, stop, step);
+		return LoopIterators.downto(start, stop, step);
 	}
-	
-	private static final class UptoIterator implements Iterator<Long> {
-		private long start;
-		private long stop;
-		private long step;
-		public UptoIterator(long start, long stop, long step) {
-			this.start = start;
-			this.stop  = stop + 1;
-			this.step  = step;
-		}
-		public boolean hasNext() {
-			return start < stop;
-		}
-		public Long next() {
-			try {return start;} finally {start += step;}
-		}
-		public void remove() {
-			throw new UnsupportedOperationException();
-		}
-	}
-	
-	private static final class DowntoIterator implements Iterator<Long> {
-		private long start;
-		private long stop;
-		private long step;
-		public DowntoIterator(long start, long stop, long step) {
-			this.start = start + 1;
-			this.stop  = stop;
-			this.step  = step;
-		}
-		public boolean hasNext() {
-			return start > stop;
-		}
-		public Long next() {
-			return start -= step;
-		}
-		public void remove() {
-			throw new UnsupportedOperationException();
-		}
-	}
+
 }
