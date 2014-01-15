@@ -33,6 +33,9 @@ public final class FunctionUtils {
 	/*
 	 ------------------------------------------------------------------------------------------------------------------- */
 
+	/**
+	 * @since 1.0.7
+	 */
 	public static Errors findErrors(JetContext jetContext) {
 		Set<String> keyset = jetContext.keySet();
 		

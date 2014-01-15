@@ -13,6 +13,9 @@ public final class TagUtils {
 	private TagUtils() {
 	}
 	
+	/*
+	 ------------------------------------------------------------------------------------------------------------------- */
+	
 	@Deprecated
 	public static HttpServletRequest getRequest(JetTagContext ctx) {
 		return (HttpServletRequest) ctx.getContext().get(JetWebContext.REQUEST);
@@ -22,7 +25,13 @@ public final class TagUtils {
 	public static ServletContext getServletContext(JetTagContext ctx) {
 		return (ServletContext) ctx.getContext().get(JetWebContext.SERVLET_CONTEXT);
 	}
+	
+	/*
+	 ------------------------------------------------------------------------------------------------------------------- */
 
+	/**
+	 * @since 1.0.6
+	 */
 	public static String formatAttributes(Map<String, Object> attributes) {
 		if (attributes == null || attributes.isEmpty()) {
 			return "";
