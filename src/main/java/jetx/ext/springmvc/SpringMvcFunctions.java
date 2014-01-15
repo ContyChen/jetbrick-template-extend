@@ -1,27 +1,22 @@
 package jetx.ext.springmvc;
 
-import static jetx.ext.internal.FunctionUtils.getRequest;
-import static jetx.ext.internal.FunctionUtils.getServletContext;
-
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
 import jetbrick.template.JetAnnotations.Functions;
-import jetbrick.template.JetContext;
 import jetbrick.template.runtime.JetPageContext;
+import jetx.ext.internal.ExtendUtils;
+import jetx.ext.internal.FunctionUtils;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
 import org.springframework.ui.context.Theme;
 import org.springframework.ui.context.ThemeSource;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -50,7 +45,8 @@ public final class SpringMvcFunctions {
 	 * 获取Spring ROOT上下文 
 	 */
 	public static WebApplicationContext getWebApplicationContext(JetPageContext ctx) {
-		return WebApplicationContextUtils.getWebApplicationContext(getServletContext(ctx), WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+		return WebApplicationContextUtils.getWebApplicationContext(
+				ExtendUtils.getServletContext(ctx), WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
 	}
 	
 	/**
@@ -64,7 +60,7 @@ public final class SpringMvcFunctions {
 	 * 获取当前的Locale 
 	 */
 	public static Locale getLocale(JetPageContext ctx) {
-		HttpServletRequest request = getRequest(ctx);
+		HttpServletRequest request = ExtendUtils.getHttpServletRequest(ctx);
 		return RequestContextUtils.getLocale(request);
 	}
 	
@@ -72,7 +68,7 @@ public final class SpringMvcFunctions {
 	 * 获取LocaleResolver
 	 */
 	public static LocaleResolver getLocaleResolver(JetPageContext ctx) {
-		HttpServletRequest request = getRequest(ctx);
+		HttpServletRequest request = ExtendUtils.getHttpServletRequest(ctx);
 		return RequestContextUtils.getLocaleResolver(request);
 	}
 
@@ -80,7 +76,7 @@ public final class SpringMvcFunctions {
 	 * 获取FlashMapManager
 	 */
 	public static FlashMapManager getFlashMapManager(JetPageContext ctx) {
-		HttpServletRequest request = getRequest(ctx);
+		HttpServletRequest request = ExtendUtils.getHttpServletRequest(ctx);
 		return RequestContextUtils.getFlashMapManager(request);
 	}
 	
@@ -88,7 +84,7 @@ public final class SpringMvcFunctions {
 	 * 获取InputFlashMap
 	 */
 	public static Map<String, ?> getInputFlashMap(JetPageContext ctx) {
-		HttpServletRequest request = getRequest(ctx);
+		HttpServletRequest request = ExtendUtils.getHttpServletRequest(ctx);
 		return RequestContextUtils.getInputFlashMap(request);
 	}
 	
@@ -96,7 +92,7 @@ public final class SpringMvcFunctions {
 	 * 获取OutputFlashMap
 	 */
 	public static Map<String, ?> getOutputFlashMap(JetPageContext ctx) {
-		HttpServletRequest request = getRequest(ctx);
+		HttpServletRequest request = ExtendUtils.getHttpServletRequest(ctx);
 		return RequestContextUtils.getOutputFlashMap(request);
 	}
 	
@@ -104,7 +100,7 @@ public final class SpringMvcFunctions {
 	 * 获取Theme
 	 */
 	public static Theme getTheme(JetPageContext ctx) {
-		HttpServletRequest request = getRequest(ctx);
+		HttpServletRequest request = ExtendUtils.getHttpServletRequest(ctx);
 		return RequestContextUtils.getTheme(request);
 	}
 	
@@ -112,7 +108,7 @@ public final class SpringMvcFunctions {
 	 * 获取ThemeResolver
 	 */
 	public static ThemeResolver getThemeResolver(JetPageContext ctx) {
-		HttpServletRequest request = getRequest(ctx);
+		HttpServletRequest request = ExtendUtils.getHttpServletRequest(ctx);
 		return RequestContextUtils.getThemeResolver(request);
 	}
 	
@@ -120,10 +116,9 @@ public final class SpringMvcFunctions {
 	 * 获取ThemeSource 
 	 */
 	public static ThemeSource getThemeSource(JetPageContext ctx) {
-		HttpServletRequest request = getRequest(ctx);
+		HttpServletRequest request = ExtendUtils.getHttpServletRequest(ctx);
 		return RequestContextUtils.getThemeSource(request);
 	}
-	
 	
 	/* validation
 	 ------------------------------------------------------------------------------------------------------------------- */
@@ -139,7 +134,7 @@ public final class SpringMvcFunctions {
 	 * 得到字段错误信息的个数 
 	 */
 	public static int countFieldErrors(JetPageContext ctx, String fieldName) {
-		Errors errors = findErrors(ctx);
+		Errors errors = FunctionUtils.findErrors(ctx.getContext());
 		return errors != null ? errors.getFieldErrorCount(fieldName) : 0;
 	}
 	
@@ -148,7 +143,7 @@ public final class SpringMvcFunctions {
 	 */
 	public static List<String> fieldErrors(JetPageContext ctx, String fieldName) {
 
-		Errors errors = findErrors(ctx);
+		Errors errors = FunctionUtils.findErrors(ctx.getContext());
 		if (errors == null) {
 			return EMPTY_STRING_LIST;
 		}
@@ -194,7 +189,7 @@ public final class SpringMvcFunctions {
 	 * 得到全局错误信息的个数 
 	 */
 	public static int countGlobalErrors(JetPageContext ctx) {
-		Errors errors = findErrors(ctx);
+		Errors errors = FunctionUtils.findErrors(ctx.getContext());
 		return errors != null ? errors.getGlobalErrorCount() : 0;
 	}
 
@@ -203,7 +198,7 @@ public final class SpringMvcFunctions {
 	 */
 	public static List<String> globalErrors(JetPageContext ctx) {
 		
-		Errors errors = findErrors(ctx);
+		Errors errors = FunctionUtils.findErrors(ctx.getContext());
 		if (errors == null) {
 			return EMPTY_STRING_LIST;
 		}
@@ -238,44 +233,5 @@ public final class SpringMvcFunctions {
 		return Collections.unmodifiableList(msgs);
 	}
 
-	@SuppressWarnings("unchecked")
-	private static Errors findErrors(JetPageContext ctx) {
-		try {
-			JetContext jetContext = ctx.getContext();
-			Field[] fileds = JetContext.class.getDeclaredFields();
-			
-			Field f = null;
-			for (Field field : fileds) {
-				if (field.getName().equals("context")) {
-					f = field;
-					break;
-				}
-			}
-			
-			if (f == null) {
-				return null;
-			}
-			
-			f.setAccessible(true);
-			Map<String, Object> context = (Map<String, Object>) f.get(jetContext);
-			Set<String> keyset = context.keySet();
-			String key = null;
-			
-			for (String k : keyset) {
-				if (k.startsWith(BindingResult.MODEL_KEY_PREFIX)) {
-					key = k;
-					break;
-				}
-			}
-			
-			if (key == null) {
-				return null;
-			}
-			
-			return (Errors) jetContext.get(key);
-		} catch (Exception e) {
-		}
-		return null;
-	}
-
+	
 }

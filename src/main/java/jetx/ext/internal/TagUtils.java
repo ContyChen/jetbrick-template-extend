@@ -8,12 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import jetbrick.template.runtime.JetTagContext;
 import jetbrick.template.web.JetWebContext;
 
-public class TagUtils {
+public final class TagUtils {
 
+	private TagUtils() {
+	}
+	
+	@Deprecated
 	public static HttpServletRequest getRequest(JetTagContext ctx) {
 		return (HttpServletRequest) ctx.getContext().get(JetWebContext.REQUEST);
 	}
 
+	@Deprecated
 	public static ServletContext getServletContext(JetTagContext ctx) {
 		return (ServletContext) ctx.getContext().get(JetWebContext.SERVLET_CONTEXT);
 	}

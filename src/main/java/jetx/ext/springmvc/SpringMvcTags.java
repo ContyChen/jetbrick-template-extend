@@ -1,8 +1,6 @@
 package jetx.ext.springmvc;
 
 
-import static jetx.ext.internal.TagUtils.getRequest;
-
 import java.io.IOException;
 import java.util.Locale;
 
@@ -11,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import jetbrick.template.JetAnnotations.Tags;
 import jetbrick.template.runtime.JetTagContext;
 import jetbrick.template.utils.ExceptionUtils;
+import jetx.ext.internal.ExtendUtils;
 
 import org.springframework.context.MessageSource;
 import org.springframework.context.NoSuchMessageException;
@@ -40,7 +39,7 @@ public final class SpringMvcTags {
 	public static void i18n(JetTagContext ctx, String code, Object[] args, String defaultMessage)
 			throws IOException {
 
-		HttpServletRequest request = getRequest(ctx);
+		HttpServletRequest request = ExtendUtils.getHttpServletRequest(ctx);
 		
 		MessageSource messageSource = RequestContextUtils.getWebApplicationContext(request);
 		Locale locale = RequestContextUtils.getLocale(request);

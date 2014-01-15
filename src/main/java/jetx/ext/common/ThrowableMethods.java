@@ -10,6 +10,7 @@ import jetbrick.template.JetAnnotations.Methods;
  * 对java.lang.Throwable做的method
  * 
  * @author 应卓(yingzhor@gmail.com)
+ * @since 1.0.1
  */
 @Methods
 public final class ThrowableMethods {

@@ -10,6 +10,7 @@ import jetbrick.template.JetAnnotations.Methods;
  * 对java.util.Date做的method
  * 
  * @author 应卓(yingzhor@gmail.com)
+ * @since 1.0.4
  */
 @Methods
 public final class DateTimeMethods {
