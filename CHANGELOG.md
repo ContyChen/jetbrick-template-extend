@@ -1,4 +1,7 @@
 
+#####1.0.7
+* [添加] Collection/List/Set/Map扩展方法
+
 #####1.0.6
 * [添加] java.lang.Integer(int)扩展方法upto(), downto()
 * [添加] java.lang.Long(long)扩展方法upto(), downto()
