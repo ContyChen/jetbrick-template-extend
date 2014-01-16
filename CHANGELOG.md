@@ -1,6 +1,5 @@
 
 #####1.0.7
-* [添加] Collection/List/Set/Map扩展方法
 * [修复] JetContext是链条状，SpringMvcFunctions查找Errors时没有查找parent
 * [修复] 针对jetbrick-template新添加的JetContextAware接口精简代码
 
