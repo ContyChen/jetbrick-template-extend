@@ -16,57 +16,15 @@
  */
 package jetx.ext.loader;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
-
-import javax.sql.DataSource;
-
-import jetbrick.template.utils.ExceptionUtils;
-import jetx.ext.internal.db.DriverManagerDataSource;
 
 /**
  * @author 应卓(yingzhor@gmail.com)
  * @since 1.0.8
  */
-public class MySqlDatabaseResourceLoader extends AbstractDatabaseResourceLoader {
+public class MySqlDatabaseResourceLoader extends AbstractConfiguredDatabaseResourceLoader {
 
-	private static final ClassLoader DEFAULT_CLASS_LOADER = Thread.currentThread().getContextClassLoader();
-	
-	private final String driverClassName;
-	private final String url;
-	private final String username;
-	private final String password;
-	
 	public MySqlDatabaseResourceLoader() {
-		InputStream config = DEFAULT_CLASS_LOADER.getResourceAsStream("jetx-ext-dbloader.properties");
-		if (config == null) {
-			throw ExceptionUtils.uncheck(new FileNotFoundException("config file not found. ['classpath:jetx-ext-dbloader.properties']"));
-		}
-		
-		Properties props = new Properties();
-		
-		try {
-			props.load(config);
-		} catch (IOException e) {
-			throw ExceptionUtils.uncheck(e);
-		}
-		
-		driverClassName = props.getProperty("jdbc.driver");
-		url = props.getProperty("jdbc.url");
-		username = props.getProperty("jdbc.username");
-		password = props.getProperty("jdbc.password");
-	}
-	
-	@Override
-	public DataSource getDataSource() {
-		DriverManagerDataSource ds = new DriverManagerDataSource();
-		ds.setDriverClassName(driverClassName);
-		ds.setUrl(url);
-		ds.setUsername(username);
-		ds.setPassword(password);
-		return ds;
+		super();
 	}
 
 	@Override
