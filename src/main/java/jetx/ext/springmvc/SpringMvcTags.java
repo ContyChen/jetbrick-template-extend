@@ -63,7 +63,7 @@ public final class SpringMvcTags {
 		try {
 			value = messageSource.getMessage(code, args, defaultMessage, locale);
 		} catch (NoSuchMessageException e) {
-			ExceptionUtils.uncheck(e);
+			throw ExceptionUtils.uncheck(e);
 		}
 		
 		if (value != null) {

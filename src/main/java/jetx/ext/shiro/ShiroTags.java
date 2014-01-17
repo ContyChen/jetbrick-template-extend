@@ -239,7 +239,7 @@ public final class ShiroTags {
 				try {
 					val = PropertyUtils.getProperty(principal, property).toString();
 				} catch (Exception e) {
-					ExceptionUtils.uncheck(e);
+					throw ExceptionUtils.uncheck(e);
 				}
 			}
 		}
