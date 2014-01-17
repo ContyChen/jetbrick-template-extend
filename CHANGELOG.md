@@ -1,4 +1,9 @@
 
+#####1.0.8
+* [修复] 修复ExceptionUtils使用错误
+* [添加] 对数据库存放jetx模板方式的支持
+* [添加] 针对MySql用户实现特定TemplateLoader
+
 #####1.0.7
 * [修复] JetContext是链条状，SpringMvcFunctions查找Errors时没有查找parent
 * [修复] 针对jetbrick-template新添加的JetContextAware接口精简代码
