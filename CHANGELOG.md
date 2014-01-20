@@ -1,4 +1,7 @@
 
+#####1.0.9
+* [增强] 细化MySqlDatabaseLoader代码
+
 #####1.0.8
 * [修复] 修复ExceptionUtils使用错误
 * [添加] 对数据库存放jetx模板方式的支持
