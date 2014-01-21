@@ -5,18 +5,19 @@
 	<artifactId>jetbrick-template-extend</artifactId>
 	<version>1.0.8</version>
 	<packaging>jar</packaging>
-	
+
+
 	<name>jetbrick-template-extend</name>
 	<description>extend of jetbrick-template</description>
 	<url>https://github.com/yingzhuo/jetbrick-template-extend/wiki</url>
-	
+
 	<licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
 	<developers>
 		<developer>
@@ -26,16 +27,22 @@
 		</developer>
 	</developers>
 
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+
 	<scm>
-        <url>https://github.com/yingzhuo/jetbrick-template-extend.git</url>
-        <connection>scm:git:https://github.com/yingzhuo/jetbrick-template-extend.git</connection>
-        <developerConnection>scm:git:git://github.com/yingzhuo/jetbrick-template-extend.git</developerConnection>
-    </scm>
-	
+		<url>https://github.com/yingzhuo/jetbrick-template-extend.git</url>
+		<connection>scm:git:https://github.com/yingzhuo/jetbrick-template-extend.git</connection>
+		<developerConnection>scm:git:git://github.com/yingzhuo/jetbrick-template-extend.git</developerConnection>
+	</scm>
+
 	<issueManagement>
-        <system>github issue</system>
-        <url>https://github.com/yingzhuo/jetbrick-template-extend/issues</url>
-    </issueManagement>
+		<system>github issue</system>
+		<url>https://github.com/yingzhuo/jetbrick-template-extend/issues</url>
+	</issueManagement>
 
 	<repositories>
 		<repository>
@@ -80,14 +87,8 @@
 	</repositories>
 
 	<dependencies>
-		<!--
-		<dependency>
-			<groupId>com.github.subchen</groupId>
-			<artifactId>jetbrick-template</artifactId>
-			<version>1.2.0</version>
-			<scope>provided</scope>
-		</dependency>
-		-->
+		<!-- <dependency> <groupId>com.github.subchen</groupId> <artifactId>jetbrick-template</artifactId> 
+			<version>1.2.0</version> <scope>provided</scope> </dependency> -->
 		<dependency>
 			<groupId>org.antlr</groupId>
 			<artifactId>antlr4-runtime</artifactId>
