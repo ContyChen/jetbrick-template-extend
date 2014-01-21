@@ -21,6 +21,7 @@ import java.util.Iterator;
 
 /**
  * @author 应卓(yingzhor@gmail.com)
+ * @since 1.0.6
  */
 public final class LoopIterators {
 

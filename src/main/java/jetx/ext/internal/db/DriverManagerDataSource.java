@@ -58,6 +58,8 @@ import java.util.Properties;
  * plus specific settings (such as minimal/maximal pool size etc).
  *
  * @author Juergen Hoeller
+ * @since 1.0.8
+ * 
  */
 public class DriverManagerDataSource extends AbstractDriverBasedDataSource {
 

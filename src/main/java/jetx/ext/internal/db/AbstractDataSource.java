@@ -31,7 +31,7 @@ import javax.sql.DataSource;
  * {@link #getLoginTimeout()}, {@link #setLoginTimeout(int)}, and so forth.
  *
  * @author Juergen Hoeller
- * @see DriverManagerDataSource
+ * @since 1.0.8
  */
 public abstract class AbstractDataSource implements DataSource {
 

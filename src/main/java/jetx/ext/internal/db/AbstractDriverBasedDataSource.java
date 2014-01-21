@@ -25,7 +25,7 @@ import java.util.Properties;
  * that operate on a JDBC {@link java.sql.Driver}.
  *
  * @author Juergen Hoeller
- * @see DriverManagerDataSource
+ * @since 1.0.8
  */
 public abstract class AbstractDriverBasedDataSource extends AbstractDataSource {
 

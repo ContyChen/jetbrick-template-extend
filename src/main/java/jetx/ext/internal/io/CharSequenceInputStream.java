@@ -31,7 +31,7 @@ import java.nio.charset.CodingErrorAction;
  * StringBuilder or CharBuffer.
  * <p>
  * <strong>Note:</strong> Supports {@link #mark(int)} and {@link #reset()}.
- * 
+ * @since 1.0.8
  */
 public class CharSequenceInputStream extends InputStream {
 

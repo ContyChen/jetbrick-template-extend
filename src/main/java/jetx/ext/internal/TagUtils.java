@@ -24,6 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 import jetbrick.template.runtime.JetTagContext;
 import jetbrick.template.web.JetWebContext;
 
+/**
+ * @author yingzhuo
+ * @since 1.0.6
+ */
 public final class TagUtils {
 
 	private TagUtils() {
