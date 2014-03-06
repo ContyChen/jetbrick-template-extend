@@ -23,12 +23,16 @@ import jetbrick.template.runtime.JetTagContext;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.security.access.intercept.AbstractSecurityInterceptor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.taglibs.velocity.Authz;
 import org.springframework.security.taglibs.velocity.AuthzImpl;
+import org.springframework.security.web.access.DefaultWebInvocationPrivilegeEvaluator;
+import org.springframework.security.web.access.WebInvocationPrivilegeEvaluator;
 
 /**
  * 为spring-security提供的jetbrick-template标签。<br>
@@ -46,9 +50,11 @@ import org.springframework.security.taglibs.velocity.AuthzImpl;
 public final class SpringSecurityTags implements ApplicationContextAware {
 
 	private static final Authz AUTHZ = new AuthzImpl();
+	private static ApplicationContext AC;
 	
 	public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
 		AUTHZ.setAppCtx(applicationContext);
+		AC = applicationContext;
 	}
 
 	/* 
@@ -88,6 +94,47 @@ public final class SpringSecurityTags implements ApplicationContextAware {
 				}
 			}
 		}
+	}
+	
+	public static void grantedSameWithUri(JetTagContext ctx, String uri) throws IOException {
+		WebInvocationPrivilegeEvaluator evaluator = getWebInvocationPrivilegeEvaluator(ctx);
+		if (evaluator == null) {
+			throw new UnsupportedOperationException(
+					"No visible WebInvocationPrivilegeEvaluator instance could be found in the application context. There must be at least one in order to support the use of URL access checks in 'authorize' tags.");
+		}
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		boolean show = evaluator.isAllowed(uri, authentication);
+		if (show) {
+			ctx.writeBodyContent();
+		}
+	}
+	
+	private static WebInvocationPrivilegeEvaluator getWebInvocationPrivilegeEvaluator(JetTagContext ctx) {
+		WebInvocationPrivilegeEvaluator evaluator = null;
+		try {
+			evaluator = AC.getBean(WebInvocationPrivilegeEvaluator.class);
+		} catch (NoSuchBeanDefinitionException e) {
+			// 用户并没有配置WebInvocationPrivilegeEvaluator
+		}
+		
+		if (evaluator != null) {
+			return evaluator;
+		}
+		
+		AbstractSecurityInterceptor interceptor = null; 
+		try {
+			interceptor = AC.getBean(AbstractSecurityInterceptor.class);
+		} catch (NoSuchBeanDefinitionException e) {
+			// 用户并没有配置FilterSecurityInterceptor
+			// 这不可能发生，没有FilterSecurityInterceptor，SpringSecurity无法工作
+		}
+		
+		if (interceptor == null) {
+			return null;
+		}
+		
+		evaluator = new DefaultWebInvocationPrivilegeEvaluator(interceptor);
+		return evaluator;
 	}
 
 }
